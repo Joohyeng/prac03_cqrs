@@ -17,9 +17,9 @@ spring:
     name: board-command
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    url: ${DB_MASTER_URL}
+    username: ${DB_MASTER_USER}
+    password: ${DB_MASTER_PASS}
 
   jpa:
     database-platform: org.hibernate.dialect.MariaDBDialect
