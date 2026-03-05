@@ -1,0 +1,31 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: reply-query
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${DB_SLAVE_URL}
+    username: ${DB_SLAVE_USER}
+    password: ${DB_SLAVE_PASS}
+
+    jpa:
+      database-platform: org.hibernate.dialect.MariaDBDialect
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          format_sql: true
+
+  kafka:
+    bootstrap-servers: 10.10.10.20:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+logging:
+  level:
+    com.example.reply_quary: debug
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace
