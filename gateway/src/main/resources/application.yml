@@ -1,6 +1,19 @@
 jwt:
   secret: sdfkhgsdkglnhoiurjdfoihgh397478thgwr390289gyrfhp90823uoevbdo823uvh4tf
   expire: 300000
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10     # 주소를 갱신하는 시간
+    lease-expiration-duration-in-seconds: 30  # 가져온 주소의 만료 시간
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:9090/eureka
+    register-with-eureka: false  # 현재 자신의 IP주소를 유레카에 등록
+    fetch-registry: true        # 유레카에 등록된 주소들을 받아오는 것
+
+
 spring:
   application:
     name: gateway
@@ -10,13 +23,18 @@ spring:
       server:
         webflux:
           routes:
-            - id: board_command
+            - id: board-command
               uri: http://localhost:8081
               predicates:
                 - Path=/board/reg, /board/update, /board/delete
               filters:
                 - JwtFilter
-            - id: board_query
+            - id: board-query
               uri: http://localhost:8082
               predicates:
                 - Path=/board/list, /board/read/**
+
+            - id: origin
+              uri: http://localhost:8083
+              predicates:
+                - Path=/**
