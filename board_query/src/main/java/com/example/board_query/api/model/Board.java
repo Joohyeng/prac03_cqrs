@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Board {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx;
     @Column(nullable=false, length = 100)
     private String title;
